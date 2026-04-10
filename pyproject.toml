@@ -15,7 +15,17 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = []
+dependencies = [
+    "adjusttext>=1.3.0",
+    "matplotlib>=3.10.8",
+    "numba>=0.57",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "statannotations>=0.7.2",
+    "umap-learn>=0.5.5",
+]
 
 [project.urls]
 Repository = "https://github.com/sky1ove/kplot"
@@ -23,6 +33,13 @@ Documentation = "https://sky1ove.github.io/kplot/"
 
 [project.entry-points.nbdev]
 kplot = "kplot._modidx:d"
+
+[project.optional-dependencies]
+dev = [
+    "jupyter-copilot>=0.1.5",
+    "jupyterlab>=4.5.3",
+    "nbdev>=3.0.10",
+]
 
 [tool.setuptools.dynamic]
 version = {attr = "kplot.__version__"}
@@ -32,4 +49,12 @@ include = ["kplot"]
 
 [tool.nbdev]
 title = "kplot"
-lib_path = "kplot" # this is the key
+lib_path = "kplot"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
+    "jupyter-client>=8.8.0",
+    "nbclient>=0.10.4",
+    "nbformat>=5.10.4",
+]
