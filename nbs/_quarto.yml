@@ -3,20 +3,36 @@ project:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - cosmo
+      - custom.scss
     css: styles.css
     toc: true
     keep-md: true
   commonmark: default
 
 website:
+  favicon: favicon.ico
   twitter-card: true
   open-graph: true
   repo-actions: [issue]
   navbar:
     background: primary
     search: true
+    title: false
+    logo: "logo.svg"
+    left:
+      - text: "Home"
+        href: https://sky1ove.github.io/kplot/
+    right:
+      - icon: github
+        href: "https://github.com/sky1ove/kplot"
   sidebar:
     style: floating
+    contents:
+      - text: "Get Started"
+        href: index.ipynb
+      - section: Modules
+        contents: "*.ipynb"
 
-metadata-files: [nbdev.yml, sidebar.yml]
+metadata-files: [nbdev.yml]
