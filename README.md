@@ -9,7 +9,7 @@ the package and show quick-start examples from each exported module.
 ## Installation
 
 ``` bash
-pip install -U python-kplot
+pip install python-kplot
 ```
 
 ## Quick start
