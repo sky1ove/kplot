@@ -1,0 +1,311 @@
+[
+  {
+    "objectID": "heatmap.html",
+    "href": "heatmap.html",
+    "title": "heatmap",
+    "section": "",
+    "text": "df = sns.load_dataset('titanic').dropna(subset=['age', 'fare', 'class', 'sex', 'survived']).reset_index(drop=True)\ndf2 = df[['age', 'fare', 'sibsp', 'parch']].head(8).copy()\ndf2.index = [f'row_{i}' for i in range(len(df2))]\nprint(df.shape)\nprint(df2.shape)\n\n(714, 15)\n(8, 4)\ndf.head()\n\n\n\n\n\n\n\n\nsurvived\npclass\nsex\nage\nsibsp\nparch\nfare\nembarked\nclass\nwho\nadult_male\ndeck\nembark_town\nalive\nalone\n\n\n\n\n0\n0\n3\nmale\n22.0\n1\n0\n7.2500\nS\nThird\nman\nTrue\nNaN\nSouthampton\nno\nFalse\n\n\n1\n1\n1\nfemale\n38.0\n1\n0\n71.2833\nC\nFirst\nwoman\nFalse\nC\nCherbourg\nyes\nFalse\n\n\n2\n1\n3\nfemale\n26.0\n0\n0\n7.9250\nS\nThird\nwoman\nFalse\nNaN\nSouthampton\nyes\nTrue\n\n\n3\n1\n1\nfemale\n35.0\n1\n0\n53.1000\nS\nFirst\nwoman\nFalse\nC\nSouthampton\nyes\nFalse\n\n\n4\n0\n3\nmale\n35.0\n0\n0\n8.0500\nS\nThird\nman\nTrue\nNaN\nSouthampton\nno\nTrue",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "heatmap"
+    ]
+  },
+  {
+    "objectID": "heatmap.html#matrix-helpers",
+    "href": "heatmap.html#matrix-helpers",
+    "title": "heatmap",
+    "section": "Matrix Helpers",
+    "text": "Matrix Helpers\n\n\nget_similarity\n\ndef get_similarity(\n    df:DataFrame, # numeric feature matrix indexed by sample name\n    metric:str='euclidean', # pairwise_distances metric name\n)-&gt;tuple:\n\nCalculate both distance and similarity matrices for a dataframe.\n\nget_similarity(df2)[0]\n\n\n\n\n\n\n\n\nrow_0\nrow_1\nrow_2\nrow_3\nrow_4\nrow_5\nrow_6\nrow_7\n\n\n\n\nrow_0\n0.000000\n66.001996\n4.177993\n47.657345\n13.062925\n54.911521\n24.415786\n6.714166\n\n\nrow_1\n66.001996\n0.000000\n64.492435\n18.429118\n63.312323\n25.182682\n61.821302\n61.188418\n\n\nrow_2\n4.177993\n64.492435\n0.000000\n46.073643\n9.000868\n52.100901\n27.548548\n3.910651\n\n\nrow_3\n47.657345\n18.429118\n46.073643\n0.000000\n45.061097\n19.066500\n46.039121\n42.780883\n\n\nrow_4\n13.062925\n63.312323\n9.000868\n45.061097\n0.000000\n47.754949\n35.618122\n8.803791\n\n\nrow_5\n54.911521\n25.182682\n52.100901\n19.066500\n47.754949\n0.000000\n60.513388\n48.906725\n\n\nrow_6\n24.415786\n61.821302\n27.548548\n46.039121\n35.618122\n60.513388\n0.000000\n27.089433\n\n\nrow_7\n6.714166\n61.188418\n3.910651\n42.780883\n8.803791\n48.906725\n27.089433\n0.000000\n\n\n\n\n\n\n\n\n\n\nplot_corr\n\ndef plot_corr(\n    df_corr:DataFrame, # correlation, distance, or similarity matrix\n    mask_method:str | None='upper', # upper, lower, or None\n    inverse_color:bool=False, # reverse the colormap when True\n    figsize:tuple=(15, 10), # figure size in inches\n    annot:bool=True, # whether to annotate the matrix values\n    linewidths:float=0.1, # cell border width\n    kwargs:VAR_KEYWORD\n):\n\nPlot a square matrix with an optional triangular mask.\n\nplot_corr(df[['age', 'fare', 'sibsp', 'parch']].corr(numeric_only=True))",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "heatmap"
+    ]
+  },
+  {
+    "objectID": "heatmap.html#classification-and-composition",
+    "href": "heatmap.html#classification-and-composition",
+    "title": "heatmap",
+    "section": "Classification And Composition",
+    "text": "Classification And Composition\n\n\nplot_confusion_matrix\n\ndef plot_confusion_matrix(\n    target, # true labels\n    pred, # predicted labels\n    class_names:list[str] | None=None, # labels shown on the axes\n    normalize:bool=False, # normalize rows when True\n    title:str='Confusion matrix', # plot title\n    cmap:LinearSegmentedColormap=&lt;matplotlib.colors.LinearSegmentedColormap object at 0x7f9d7e4ea5d0&gt;, # matplotlib colormap\n    figsize:tuple=(6, 6), # figure size in inches\n    kwargs:VAR_KEYWORD\n):\n\nPlot a confusion matrix from target and prediction arrays.\n\nplot_confusion_matrix(df['survived'], df['adult_male'], class_names=['False', 'True'], normalize=True)\n\nNormalized confusion matrix",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "heatmap"
+    ]
+  },
+  {
+    "objectID": "scatter.html",
+    "href": "scatter.html",
+    "title": "scatter",
+    "section": "",
+    "text": "df = sns.load_dataset('penguins').dropna().reset_index(drop=True)\ndf2 = df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]\nprint(df.shape)\nprint(df2.shape)\n\n(333, 7)\n(333, 4)\ndf.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n4\nAdelie\nTorgersen\n39.3\n20.6\n190.0\n3650.0\nMale",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "scatter"
+    ]
+  },
+  {
+    "objectID": "scatter.html#dimensionality-reduction",
+    "href": "scatter.html#dimensionality-reduction",
+    "title": "scatter",
+    "section": "Dimensionality Reduction",
+    "text": "Dimensionality Reduction\n\n\nreduce_feature\n\ndef reduce_feature(\n    df:DataFrame, # numeric feature matrix\n    method:str='pca', # one of pca, tsne, umap\n    complexity:int=20, # perplexity for tsne or neighbors for umap\n    n:int=2, # number of output dimensions\n    load:str | pathlib.Path | None=None, # path to a previously fitted reducer\n    save:str | pathlib.Path | None=None, # optional path for persisting the reducer\n    seed:int=123, # random_state used by reducers that support it\n    kwargs:VAR_KEYWORD\n)-&gt;DataFrame: # forwarded reducer kwargs\n\nReduce a feature matrix to a lower-dimensional embedding dataframe.\n\nreduce_feature(df2, method='pca', n=2)\n\n\n\n\n\n\n\n\nPCA1\nPCA2\n\n\n\n\n0\n-457.325073\n-13.351587\n\n\n1\n-407.252205\n-9.179113\n\n\n2\n-957.044676\n8.160444\n\n\n3\n-757.115802\n1.867653\n\n\n4\n-557.177302\n-3.389158\n\n\n...\n...\n...\n\n\n328\n718.068699\n2.338199\n\n\n329\n643.090909\n4.280699\n\n\n330\n1543.098355\n-2.232010\n\n\n331\n992.994900\n-4.605154\n\n\n332\n1193.002584\n-5.417312\n\n\n\n\n333 rows × 2 columns",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "scatter"
+    ]
+  },
+  {
+    "objectID": "scatter.html#scatter-plots",
+    "href": "scatter.html#scatter-plots",
+    "title": "scatter",
+    "section": "Scatter Plots",
+    "text": "Scatter Plots\n\n\nplot_2d\n\ndef plot_2d(\n    embedding_df:DataFrame, # dataframe with at least two numeric columns\n    hue:str | None=None, # column name used for color when present in embedding_df\n    palette:str='tab20', # seaborn palette name\n    legend:bool=False, # whether to draw a legend\n    name_list:list[str] | None=None, # labels used to annotate points\n    s:int=20, # marker size\n    legend_title:str | None=None, # optional legend title override\n    kwargs:VAR_KEYWORD\n):\n\nPlot the first two columns of an embedding dataframe.\n\ndf2 = reduce_feature(df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']], method='pca', n=2)\ndf2['species'] = df['species'].values\nplot_2d(df2, hue='species', legend=True)\n\n\n\n\n\n\n\n\n\n\n\nplot_cluster\n\ndef plot_cluster(\n    df:DataFrame, # numeric feature matrix, optionally including a hue column\n    method:str='pca', # one of pca, tsne, umap\n    hue:str | pandas.Series | list | None=None, # hue column name or per-row hue values\n    complexity:int=30, # perplexity for tsne or neighbors for umap\n    palette:str='tab20', # seaborn palette name\n    legend:bool=False, # whether to draw a legend\n    name_list:list[str] | None=None, # point annotations\n    seed:int=123, # random seed passed to the reducer\n    s:int=50, # marker size\n    legend_title:str | None=None, # optional legend title override\n    kwargs:VAR_KEYWORD\n):\n\nReduce features and immediately plot the first two embedding dimensions.\n\nplot_cluster(df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'species']], method='pca', hue='species', legend=True)",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "scatter"
+    ]
+  },
+  {
+    "objectID": "scatter.html#correlation-plot",
+    "href": "scatter.html#correlation-plot",
+    "title": "scatter",
+    "section": "Correlation Plot",
+    "text": "Correlation Plot\n\n\nplot_rel\n\ndef plot_rel(\n    df:DataFrame, # dataframe that contains the x and y columns\n    x:str, # x-axis column name\n    y:str, # y-axis column name\n    text_location:tuple=(0.8, 0.1), # annotation location in axes coordinates\n    method:str | None='spearman', # one of spearman, pearson, or None\n    index_list:list[str] | None=None, # row labels to annotate\n    hue:str | None=None, # optional categorical hue column\n    reg_line:bool=True, # whether to draw a regression line when hue is used\n    data:NoneType=None, x_estimator:NoneType=None, x_bins:NoneType=None, x_ci:str='ci', scatter:bool=True,\n    fit_reg:bool=True, ci:int=95, n_boot:int=1000, units:NoneType=None, seed:NoneType=None, order:int=1,\n    logistic:bool=False, lowess:bool=False, robust:bool=False, logx:bool=False, x_partial:NoneType=None,\n    y_partial:NoneType=None, truncate:bool=True, dropna:bool=True, x_jitter:NoneType=None, y_jitter:NoneType=None,\n    label:NoneType=None, color:NoneType=None, marker:str='o', scatter_kws:NoneType=None, line_kws:NoneType=None,\n    ax:NoneType=None\n):\n\nPlot a pairwise relationship with an optional correlation annotation.\n\ndf2 = df[['bill_length_mm', 'flipper_length_mm', 'species']].head(12).copy()\ndf2.index = [f'pt{i}' for i in range(len(df2))]\nplot_rel(df2, x='bill_length_mm', y='flipper_length_mm', hue='species', index_list=['pt0', 'pt11'])",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "scatter"
+    ]
+  },
+  {
+    "objectID": "bar.html",
+    "href": "bar.html",
+    "title": "bar",
+    "section": "",
+    "text": "df = sns.load_dataset('tips').dropna()\ndf.shape\n\n(244, 7)\ndf.head()\n\n\n\n\n\n\n\n\ntotal_bill\ntip\nsex\nsmoker\nday\ntime\nsize\n\n\n\n\n0\n16.99\n1.01\nFemale\nNo\nSun\nDinner\n2\n\n\n1\n10.34\n1.66\nMale\nNo\nSun\nDinner\n3\n\n\n2\n21.01\n3.50\nMale\nNo\nSun\nDinner\n3\n\n\n3\n23.68\n3.31\nMale\nNo\nSun\nDinner\n2\n\n\n4\n24.59\n3.61\nFemale\nNo\nSun\nDinner\n4",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "bar.html#distribution-plots",
+    "href": "bar.html#distribution-plots",
+    "title": "bar",
+    "section": "Distribution Plots",
+    "text": "Distribution Plots\n\n\nplot_hist\n\ndef plot_hist(\n    df:DataFrame, # dataframe containing the values to plot\n    x:str, # numeric column name\n    figsize:tuple=(6, 2), # figure size in inches\n    data:NoneType=None, y:NoneType=None, hue:NoneType=None, weights:NoneType=None, # Vector variables\n    stat:str='count', bins:str='auto', binwidth:NoneType=None,\n    binrange:NoneType=None, # Histogram computation parameters\n    discrete:NoneType=None, cumulative:bool=False, common_bins:bool=True, common_norm:bool=True,\n    multiple:str='layer', element:str='bars', fill:bool=True, shrink:int=1, # Histogram appearance parameters\n    kde:bool=False, kde_kws:NoneType=None,\n    line_kws:NoneType=None, # Histogram smoothing with a kernel density estimate\n    thresh:int=0, pthresh:NoneType=None, pmax:NoneType=None, cbar:bool=False, cbar_ax:NoneType=None,\n    cbar_kws:NoneType=None, # Bivariate histogram parameters\n    palette:NoneType=None, hue_order:NoneType=None, hue_norm:NoneType=None,\n    color:NoneType=None, # Hue mapping parameters\n    log_scale:NoneType=None, legend:bool=True, ax:NoneType=None, # Axes information\n):\n\nPlot a histogram with a KDE overlay and polygon bins.\n\nplot_hist(df, 'total_bill')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "bar.html#count-and-bar-plots",
+    "href": "bar.html#count-and-bar-plots",
+    "title": "bar",
+    "section": "Count And Bar Plots",
+    "text": "Count And Bar Plots\n\n\nplot_count\n\ndef plot_count(\n    cnt:Series, # output of df[col].value_counts()\n    tick_spacing:float | None=None, # optional major tick interval\n    palette:str='tab20', # seaborn palette name\n):\n\nPlot horizontal counts from a value-count series.\n\nplot_count(df['day'].value_counts())\n\n\n\n\n\n\n\n\n\n\n\nplot_bar\n\ndef plot_bar(\n    df:DataFrame, # long-form dataframe\n    value:str, # numeric column name\n    group:str, # grouping column name\n    title:str | None=None, # optional plot title\n    figsize:tuple=(12, 5), # figure size in inches\n    fontsize:int=14, # axis label and tick size\n    dots:bool=True, # whether to overlay strip dots\n    rotation:float=90, # x tick rotation angle\n    ascending:bool=False, # sort group means ascending when True\n    ymin:float | None=None, # optional lower y-axis bound\n    data:NoneType=None, x:NoneType=None, y:NoneType=None, hue:NoneType=None, order:NoneType=None,\n    hue_order:NoneType=None, estimator:str='mean', errorbar:tuple=('ci', 95), n_boot:int=1000, seed:NoneType=None,\n    units:NoneType=None, weights:NoneType=None, orient:NoneType=None, color:NoneType=None, palette:NoneType=None,\n    saturation:float=0.75, fill:bool=True, hue_norm:NoneType=None, width:float=0.8, dodge:str='auto', gap:int=0,\n    log_scale:NoneType=None, native_scale:bool=False, formatter:NoneType=None, legend:str='auto', capsize:int=0,\n    err_kws:NoneType=None, ci:Deprecated=&lt;deprecated&gt;, errcolor:Deprecated=&lt;deprecated&gt;,\n    errwidth:Deprecated=&lt;deprecated&gt;, ax:NoneType=None\n):\n\nPlot a bar chart from an unstacked dataframe.\n\nplot_bar(df, value='total_bill', group='day')\n\n\n\n\n\n\n\n\n\n\n\nplot_group_bar\n\ndef plot_group_bar(\n    df:DataFrame, # wide-form dataframe\n    value_cols:list, # numeric columns to melt into grouped bars\n    group:str, # grouping column preserved during melt\n    figsize:tuple=(12, 5), # figure size in inches\n    order:NoneType=None, # optional x order passed to seaborn\n    title:str | None=None, # optional plot title\n    fontsize:int=14, # axis label and tick size\n    rotation:float=90, # x tick rotation angle\n    data:NoneType=None, x:NoneType=None, y:NoneType=None, hue:NoneType=None, hue_order:NoneType=None,\n    estimator:str='mean', errorbar:tuple=('ci', 95), n_boot:int=1000, seed:NoneType=None, units:NoneType=None,\n    weights:NoneType=None, orient:NoneType=None, color:NoneType=None, palette:NoneType=None, saturation:float=0.75,\n    fill:bool=True, hue_norm:NoneType=None, width:float=0.8, dodge:str='auto', gap:int=0, log_scale:NoneType=None,\n    native_scale:bool=False, formatter:NoneType=None, legend:str='auto', capsize:int=0, err_kws:NoneType=None,\n    ci:Deprecated=&lt;deprecated&gt;, errcolor:Deprecated=&lt;deprecated&gt;, errwidth:Deprecated=&lt;deprecated&gt;, ax:NoneType=None\n):\n\nPlot grouped bars after melting multiple value columns.\n\nplot_group_bar(df, value_cols=['total_bill', 'tip'], group='day')\n\n\n\n\n\n\n\n\n\n\n\nplot_stacked\n\ndef plot_stacked(\n    df:DataFrame, # dataframe containing the stacked categories\n    group:str, # x-axis categorical column\n    hue:str, # stacked hue column\n    figsize:tuple=(5, 4), # figure size in inches\n    xlabel:str | None=None, # x-axis label override\n    ylabel:str | None=None, # y-axis label override\n    add_value:bool=True, # whether to annotate total counts\n    kwargs:VAR_KEYWORD\n):\n\nPlot stacked counts for a categorical column.\n\nplot_stacked(df, group='day', hue='sex')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "bar.html#distribution-comparisons",
+    "href": "bar.html#distribution-comparisons",
+    "title": "bar",
+    "section": "Distribution Comparisons",
+    "text": "Distribution Comparisons\n\n\nplot_violin\n\ndef plot_violin(\n    df:DataFrame, # long-form dataframe with value and group columns\n    value:str='value', # numeric column name\n    group:str='variable', # grouping column name\n    ylabel:str | None=None, # optional y-axis label override\n    dots:bool=True, # whether to overlay strip dots\n    figsize:tuple=(5, 3), # figure size in inches\n    kwargs:VAR_KEYWORD\n):\n\nPlot violin plots with optional strip dots.\n\ndf2 = df[['time', 'total_bill']].rename(columns={'time': 'variable', 'total_bill': 'value'})\nplot_violin(df2)\n\n\n\n\n\n\n\n\n\n\n\nplot_box\n\ndef plot_box(\n    df:DataFrame, # long-form dataframe\n    value:str, # numeric column name\n    group:str, # grouping column name\n    title:str | None=None, # optional plot title\n    figsize:tuple=(6, 3), # figure size in inches\n    fontsize:int=14, # axis label and tick size\n    dots:bool=True, # whether to overlay strip dots\n    rotation:float=90, # x tick rotation angle\n    data:NoneType=None, x:NoneType=None, y:NoneType=None, hue:NoneType=None, order:NoneType=None,\n    hue_order:NoneType=None, orient:NoneType=None, color:NoneType=None, palette:NoneType=None, saturation:float=0.75,\n    fill:bool=True, dodge:str='auto', width:float=0.8, gap:int=0, whis:float=1.5, linecolor:str='auto',\n    linewidth:NoneType=None, fliersize:NoneType=None, hue_norm:NoneType=None, native_scale:bool=False,\n    log_scale:NoneType=None, formatter:NoneType=None, legend:str='auto', ax:NoneType=None\n):\n\nPlot a box plot ordered by the group median.\n\nplot_box(df, value='total_bill', group='day')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "bar.html#pie-and-count-labels",
+    "href": "bar.html#pie-and-count-labels",
+    "title": "bar",
+    "section": "Pie And Count Labels",
+    "text": "Pie And Count Labels\n\n\nplot_pie\n\ndef plot_pie(\n    value_counts:Series, # categorical counts\n    hue_order:list[str] | None=None, # explicit slice order\n    labeldistance:float=0.8, # distance of labels from the center\n    fontsize:int=12, # label font size\n    font_color:str='black', # label font color\n    palette:str='tab20', # seaborn palette name\n    figsize:tuple=(4, 3), # figure size in inches\n):\n\nPlot a pie chart from a value-count series.\n\nplot_pie(df['day'].value_counts())\n\n\n\n\n\n\n\n\n\n\n\nplot_cnt\n\ndef plot_cnt(\n    cnt:Series, # output of df[col].value_counts()\n    xlabel:str | None=None, # x-axis label override\n    ylabel:str='Count', # y-axis label override\n    figsize:tuple=(6, 3), # figure size in inches\n):\n\nPlot vertical counts with labels above the bars.\n\nplot_cnt(df['day'].value_counts())",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "bar.html#composition",
+    "href": "bar.html#composition",
+    "title": "bar",
+    "section": "Composition",
+    "text": "Composition\n\n\ncalculate_pct\n\ndef calculate_pct(\n    df:DataFrame, # source dataframe\n    bin_col:str, # binned x-axis column\n    hue_col:str, # stacked hue column\n)-&gt;DataFrame:\n\nCalculate within-bin percentages for a stacked composition chart.\n\ndf2 = sns.load_dataset('titanic').dropna(subset=['class', 'sex']).reset_index(drop=True)\ncalculate_pct(df2, 'class', 'sex')\n\n\n\n\n\n\n\nsex\nfemale\nmale\n\n\nclass\n\n\n\n\n\n\nFirst\n43.518519\n56.481481\n\n\nSecond\n41.304348\n58.695652\n\n\nThird\n29.327902\n70.672098\n\n\n\n\n\n\n\n\n\n\nplot_composition\n\ndef plot_composition(\n    df:DataFrame, # source dataframe\n    bin_col:str, # binned x-axis column\n    hue_col:str, # stacked hue column\n    palette:dict | list | str='tab20', # colors passed to get_plt_color\n    legend_title:str | None=None, # legend title override\n    rotation:float=45, # x tick rotation angle\n    xlabel:str | None=None, # x-axis label override\n    ylabel:str='Percentage', # y-axis label override\n    figsize:tuple=(5, 3), # figure size in inches\n):\n\nPlot stacked percentages for a bin-by-category composition.\n\nplot_composition(df2, 'class', 'sex')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "bar"
+    ]
+  },
+  {
+    "objectID": "utils.html",
+    "href": "utils.html",
+    "title": "utils",
+    "section": "",
+    "text": "df = sns.load_dataset('tips')\ndf.shape\n\n(244, 7)\ndf.head()\n\n\n\n\n\n\n\n\ntotal_bill\ntip\nsex\nsmoker\nday\ntime\nsize\n\n\n\n\n0\n16.99\n1.01\nFemale\nNo\nSun\nDinner\n2\n\n\n1\n10.34\n1.66\nMale\nNo\nSun\nDinner\n3\n\n\n2\n21.01\n3.50\nMale\nNo\nSun\nDinner\n3\n\n\n3\n23.68\n3.31\nMale\nNo\nSun\nDinner\n2\n\n\n4\n24.59\n3.61\nFemale\nNo\nSun\nDinner\n4",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "utils"
+    ]
+  },
+  {
+    "objectID": "utils.html#setup-helpers",
+    "href": "utils.html#setup-helpers",
+    "title": "utils",
+    "section": "Setup Helpers",
+    "text": "Setup Helpers\n\n\nset_sns\n\ndef set_sns(\n    dpi:int=300\n)-&gt;None:\n\nSet seaborn defaults for notebook display and saved figures.\n\nset_sns(dpi=50)\n\n\n\n\nsave_svg\n\ndef save_svg(\n    path:str | pathlib.Path\n)-&gt;None:\n\nSave the current matplotlib figure as SVG with editable text.\n\nplt.figure()\nplt.plot([0, 1], [0, 1])\n# save_svg(Path('nbs') / '_tmp_utils.svg')\n\n\n\n\n\n\n\n\n\n\n\nsave_pdf\n\ndef save_pdf(\n    path:str | pathlib.Path\n)-&gt;None:\n\nSave the current matplotlib figure as PDF with TrueType fonts.\n\nplt.figure()\nplt.plot([0, 1], [1, 0])\n# save_pdf(Path('nbs') / '_tmp_utils.pdf')\n\n\n\n\n\n\n\n\n\n\n\nsave_show\n\ndef save_show(\n    path:str | pathlib.Path | None=None, # output path when saving instead of showing\n    show_only:bool=False, # force plt.show even when no path is provided\n)-&gt;None:\n\nShow the current figure or save it, then close open figures.\n\nplt.figure()\nplt.plot([0, 1], [0.5, 0.5])\n# save_show(path=Path('nbs') / '_tmp_utils_show.png')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "utils"
+    ]
+  },
+  {
+    "objectID": "utils.html#palette-helpers",
+    "href": "utils.html#palette-helpers",
+    "title": "utils",
+    "section": "Palette Helpers",
+    "text": "Palette Helpers\n\n\nget_color_dict\n\ndef get_color_dict(\n    categories:list, # labels that need colors\n    palette:str='tab20', # seaborn palette name\n)-&gt;dict:\n\nAssign colors to labels while tolerating duplicate category names.\n\nget_color_dict(['A', 'B', 'C'], palette='Set2')\n\n{'A': (0.4, 0.7607843137254902, 0.6470588235294118),\n 'B': (0.9882352941176471, 0.5529411764705883, 0.3843137254901961),\n 'C': (0.5529411764705883, 0.6274509803921569, 0.796078431372549)}\n\n\n\n\n\nget_plt_color\n\ndef get_plt_color(\n    palette:dict | list | str, # dict lookup, explicit list, or palette name\n    columns:list, # plotted column names in output order\n)-&gt;list:\n\nReturn colors in plotting order for a dict, list, or named palette.\n\nget_plt_color('Set2', ['a', 'b'])\n\n\n\n\n\n\n\nget_hue_big\n\ndef get_hue_big(\n    df:DataFrame, # source dataframe\n    hue_col:str, # categorical column used for hue\n    cnt_thr:int=10, # minimum count retained in the filtered hue series\n)-&gt;Series:\n\nFilter a hue column down to categories that meet a count threshold.\n\n# get_hue_big(df, 'day', cnt_thr=40).tolist()",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "utils"
+    ]
+  },
+  {
+    "objectID": "utils.html#statistical-annotations",
+    "href": "utils.html#statistical-annotations",
+    "title": "utils",
+    "section": "Statistical Annotations",
+    "text": "Statistical Annotations\n\n\nadd_stats\n\ndef add_stats(\n    ax, df, value, group, test:str='t-test_ind', loc:str='inside', text_format:str='star', min_n:int=3,\n    kwargs:VAR_KEYWORD\n):\n\nIf value is str: compare between groups (x=group, y=value) If value is list/tuple: compare among values within each group (x=group, hue=‘variable’)\n\nfig, ax = plt.subplots(figsize=(5, 4))\nsns.boxplot(data=df, x='sex', y='total_bill', ax=ax)\nadd_stats(ax, df, value='total_bill', group='sex')",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "utils"
+    ]
+  },
+  {
+    "objectID": "hierarchical.html#example-dataset",
+    "href": "hierarchical.html#example-dataset",
+    "title": "hierarchical",
+    "section": "Example dataset",
+    "text": "Example dataset\n\ndf0=sns.load_dataset(\"iris\")\ndf0.head()\n\n\n\n\n\n\n\n\nsepal_length\nsepal_width\npetal_length\npetal_width\nspecies\n\n\n\n\n0\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n1\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n2\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n3\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n4\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n\n\n\n\n\n\ndf0.species.value_counts()\n\nspecies\nsetosa        50\nversicolor    50\nvirginica     50\nName: count, dtype: int64\n\n\n\ndf = df0.drop(columns=\"species\")",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "hierarchical"
+    ]
+  },
+  {
+    "objectID": "hierarchical.html#distance",
+    "href": "hierarchical.html#distance",
+    "title": "hierarchical",
+    "section": "Distance",
+    "text": "Distance\nAlthough pdist from scipy can calculate 1D distance of self matrix (row by row) with customized function, the function is limited without key on the vector. In this module, we’d like to make functions that can consider key in the vector when calculating distance between two vectors, so the input should take dataframe for datatable and pd.Series for vectors.\n\ndef my_distance(u, v):\n    \"Manhattan distance\"\n    return np.sum(np.abs(u - v))\n\n\nA = np.array([[0, 0],\n              [1, 1],\n              [2, 2]])\npdist(A,metric=my_distance)\n\narray([2., 4., 2.])\n\n\n\npdist(df,metric=my_distance)\n\narray([0.7, 0.8, 1. , ..., 1.2, 0.9, 1.5], shape=(11175,))\n\n\n\npdist(df,metric=euclidean)\n\narray([0.53851648, 0.50990195, 0.64807407, ..., 0.6164414 , 0.64031242,\n       0.76811457], shape=(11175,))\n\n\n\n\nget_1d_distance\n\ndef get_1d_distance(\n    df, func_flat\n):\n\nCompute 1D distance (like pdist from scipy) but for df with column names\n\n# return 1d distance\nget_1d_distance(pd.DataFrame(A),func_flat=my_distance)\n\n100%|██████████| 3/3 [00:00&lt;00:00, 8823.92it/s]\n\n\narray([2, 4, 2])\n\n\nParallel computing to accelerate when flattened pssms are too many in a df:\n\n\n\nget_1d_distance_parallel\n\ndef get_1d_distance_parallel(\n    df, func_flat, max_workers:int=4, chunksize:int=100\n):\n\nParallel compute 1D distance for each row in a dataframe given a distance function\n\n# get_1d_distance_parallel(df, func_flat=my_distance)\n\n\n\n\nget_Z\n\ndef get_Z(\n    pssms, func_flat, method:str='ward', parallel:bool=True\n):\n\nGet linkage matrix Z from pssms dataframe\n\nZ = get_Z(df,func_flat=euclidean,parallel=False)\n\n100%|██████████| 150/150 [00:00&lt;00:00, 539.11it/s]\n\n\nCPU times: user 274 ms, sys: 5.29 ms, total: 279 ms\nWall time: 280 ms\n\n\n\n\n\n\nZ[:5]\n\narray([[1.01e+02, 1.42e+02, 0.00e+00, 2.00e+00],\n       [7.00e+00, 3.90e+01, 1.00e-01, 2.00e+00],\n       [0.00e+00, 1.70e+01, 1.00e-01, 2.00e+00],\n       [9.00e+00, 3.40e+01, 1.00e-01, 2.00e+00],\n       [1.28e+02, 1.32e+02, 1.00e-01, 2.00e+00]])\n\n\n\n\n\nplot_dendrogram\n\ndef plot_dendrogram(\n    Z, thr:float=0.07, dense:int=4, # the higher the more dense for each row\n    line_width:int=1, title:NoneType=None, scale:int=1, kwargs:VAR_KEYWORD\n):\n\nCall self as a function.\n\nplot_dendrogram(Z,dense=10,labels=df.index,thr=0.5)",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "hierarchical"
+    ]
+  },
+  {
+    "objectID": "hierarchical.html#pipeline",
+    "href": "hierarchical.html#pipeline",
+    "title": "hierarchical",
+    "section": "Pipeline",
+    "text": "Pipeline\n\n\nget_hcluster\n\ndef get_hcluster(\n    df, thr:float=0.07, plot:bool=True, labels:NoneType=None, func_flat:function=euclidean, method:str='ward',\n    kwargs:VAR_KEYWORD\n):\n\nGet flat cluster assignments from hierarchical clustering linkage matrix Z.\n\nget_hcluster(df,labels=df0['species'].tolist(),thr=5,dense=10)\n\n0      1\n1      1\n2      1\n3      1\n4      1\n      ..\n145    2\n146    4\n147    2\n148    2\n149    4\nLength: 150, dtype: int32",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "hierarchical"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "kplot",
+    "section": "",
+    "text": "kplot is a Python plotting toolkit for exploratory data analysis. It provides reusable helpers for styling figures, scatter and embedding plots, categorical summaries, heatmaps, hierarchical clustering, and related ranking workflows.",
+    "crumbs": [
+      "Home",
+      "Get Started"
+    ]
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "kplot",
+    "section": "Installation",
+    "text": "Installation\npip install python-kplot",
+    "crumbs": [
+      "Home",
+      "Get Started"
+    ]
+  },
+  {
+    "objectID": "index.html#quick-start",
+    "href": "index.html#quick-start",
+    "title": "kplot",
+    "section": "Quick start",
+    "text": "Quick start\nThe examples below follow the notebooks under nbs/ in order. Each function example lives in its own cell and starts with a short comment derived from the function docstring.\n\n01 utils\n\nfrom kplot.utils import set_sns, save_svg, save_pdf, save_show, get_color_dict, get_plt_color, get_hue_big, add_stats\n\n\nimport seaborn as sns\nfrom matplotlib import pyplot as plt\n\n# Set up the objects used by the examples below.\ndf = sns.load_dataset('tips')\ndf.shape\n\n(244, 7)\n\n\n\n# Set seaborn defaults for notebook display and saved figures.\nset_sns(dpi=50)\n\n\n# Save the current matplotlib figure as SVG with editable text.\nplt.figure()\nplt.plot([0, 1], [0, 1])\n# save_svg(Path('nbs') / '_tmp_utils.svg')\n\n\n\n\n\n\n\n\n\n# Save the current matplotlib figure as PDF with TrueType fonts.\nplt.figure()\nplt.plot([0, 1], [1, 0])\n# save_pdf(Path('nbs') / '_tmp_utils.pdf')\n\n\n\n\n\n\n\n\n\n# Show the current figure or save it, then close open figures.\nplt.figure()\nplt.plot([0, 1], [0.5, 0.5])\n# save_show(path=Path('nbs') / '_tmp_utils_show.png')\n\n\n\n\n\n\n\n\n\n# Assign colors to labels while tolerating duplicate category names.\nget_color_dict(['A', 'B', 'C'], palette='Set2')\n\n{'A': (0.4, 0.7607843137254902, 0.6470588235294118),\n 'B': (0.9882352941176471, 0.5529411764705883, 0.3843137254901961),\n 'C': (0.5529411764705883, 0.6274509803921569, 0.796078431372549)}\n\n\n\n# Return colors in plotting order for a dict, list, or named palette.\nget_plt_color('Set2', ['a', 'b'])\n\n\n\n\n\n# Filter a hue column down to categories that meet a count threshold.\n# get_hue_big(df, 'day', cnt_thr=40).tolist()\n\n\n# If `value` is str: compare between groups (x=group, y=value) If `value` is list/tuple: compare among values within each group (x=group, hue='variable')\nfig, ax = plt.subplots(figsize=(5, 4))\nsns.boxplot(data=df, x='sex', y='total_bill', ax=ax)\nadd_stats(ax, df, value='total_bill', group='sex')\n\n\n\n\n\n\n\n\n\n\n02 scatter\n\nfrom kplot.scatter import reduce_feature, plot_2d, plot_cluster, plot_rel\n\n\nimport seaborn as sns\n\n# Set up the objects used by the examples below.\ndf = sns.load_dataset('penguins').dropna().reset_index(drop=True)\ndf2 = df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]\nprint(df.shape)\nprint(df2.shape)\n\n(333, 7)\n(333, 4)\n\n\n\n# Reduce a feature matrix to a lower-dimensional embedding dataframe.\nreduce_feature(df2, method='pca', n=2)\n\n\n\n\n\n\n\n\nPCA1\nPCA2\n\n\n\n\n0\n-457.325073\n-13.351587\n\n\n1\n-407.252205\n-9.179113\n\n\n2\n-957.044676\n8.160444\n\n\n3\n-757.115802\n1.867653\n\n\n4\n-557.177302\n-3.389158\n\n\n...\n...\n...\n\n\n328\n718.068699\n2.338199\n\n\n329\n643.090909\n4.280699\n\n\n330\n1543.098355\n-2.232010\n\n\n331\n992.994900\n-4.605154\n\n\n332\n1193.002584\n-5.417312\n\n\n\n\n333 rows × 2 columns\n\n\n\n\n# Plot the first two columns of an embedding dataframe.\ndf2 = reduce_feature(df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']], method='pca', n=2)\ndf2['species'] = df['species'].values\nplot_2d(df2, hue='species', legend=True)\n\n\n\n\n\n\n\n\n\n# Reduce features and immediately plot the first two embedding dimensions.\nplot_cluster(df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'species']], method='pca', hue='species', legend=True)\n\n\n\n\n\n\n\n\n\n# Plot a pairwise relationship with an optional correlation annotation.\ndf2 = df[['bill_length_mm', 'flipper_length_mm', 'species']].head(12).copy()\ndf2.index = [f'pt{i}' for i in range(len(df2))]\nplot_rel(df2, x='bill_length_mm', y='flipper_length_mm', hue='species', index_list=['pt0', 'pt11'])\n\n\n\n\n\n\n\n\n\n\n03 bar\n\nfrom kplot.bar import plot_hist, plot_count, plot_bar, plot_group_bar, plot_stacked, plot_violin, plot_box, plot_pie, plot_cnt, calculate_pct, plot_composition\n\n\nimport seaborn as sns\n\n# Set up the objects used by the examples below.\ndf = sns.load_dataset('tips').dropna()\ndf.shape\n\n(244, 7)\n\n\n\n# Plot a histogram with a KDE overlay and polygon bins.\nplot_hist(df, 'total_bill')\n\n\n\n\n\n\n\n\n\n# Plot horizontal counts from a value-count series.\nplot_count(df['day'].value_counts())\n\n\n\n\n\n\n\n\n\n# Plot a bar chart from an unstacked dataframe.\nplot_bar(df, value='total_bill', group='day')\n\n\n\n\n\n\n\n\n\n# Plot grouped bars after melting multiple value columns.\nplot_group_bar(df, value_cols=['total_bill', 'tip'], group='day')\n\n\n\n\n\n\n\n\n\n# Plot stacked counts for a categorical column.\nplot_stacked(df, group='day', hue='sex')\n\n\n\n\n\n\n\n\n\n# Plot violin plots with optional strip dots.\ndf2 = df[['time', 'total_bill']].rename(columns={'time': 'variable', 'total_bill': 'value'})\nplot_violin(df2)\n\n\n\n\n\n\n\n\n\n# Plot a box plot ordered by the group median.\nplot_box(df, value='total_bill', group='day')\n\n\n\n\n\n\n\n\n\n# Plot a pie chart from a value-count series.\nplot_pie(df['day'].value_counts())\n\n\n\n\n\n\n\n\n\n# Plot vertical counts with labels above the bars.\nplot_cnt(df['day'].value_counts())\n\n\n\n\n\n\n\n\n\n# Calculate within-bin percentages for a stacked composition chart.\ndf2 = sns.load_dataset('titanic').dropna(subset=['class', 'sex']).reset_index(drop=True)\ncalculate_pct(df2, 'class', 'sex')\n\n\n\n\n\n\n\nsex\nfemale\nmale\n\n\nclass\n\n\n\n\n\n\nFirst\n43.518519\n56.481481\n\n\nSecond\n41.304348\n58.695652\n\n\nThird\n29.327902\n70.672098\n\n\n\n\n\n\n\n\n# Plot stacked percentages for a bin-by-category composition.\nplot_composition(df2, 'class', 'sex')\n\n\n\n\n\n\n\n\n\n\n04 heatmap\n\nfrom kplot.heatmap import get_similarity, plot_corr, plot_confusion_matrix\n\n\nimport seaborn as sns\n\n# Set up the objects used by the examples below.\ndf = sns.load_dataset('titanic').dropna(subset=['age', 'fare', 'class', 'sex', 'survived']).reset_index(drop=True)\ndf2 = df[['age', 'fare', 'sibsp', 'parch']].head(8).copy()\ndf2.index = [f'row_{i}' for i in range(len(df2))]\nprint(df.shape)\nprint(df2.shape)\n\n(714, 15)\n(8, 4)\n\n\n\n# Calculate both distance and similarity matrices for a dataframe.\nget_similarity(df2)[0]\n\n\n\n\n\n\n\n\nrow_0\nrow_1\nrow_2\nrow_3\nrow_4\nrow_5\nrow_6\nrow_7\n\n\n\n\nrow_0\n0.000000\n66.001996\n4.177993\n47.657345\n13.062925\n54.911521\n24.415786\n6.714166\n\n\nrow_1\n66.001996\n0.000000\n64.492435\n18.429118\n63.312323\n25.182682\n61.821302\n61.188418\n\n\nrow_2\n4.177993\n64.492435\n0.000000\n46.073643\n9.000868\n52.100901\n27.548548\n3.910651\n\n\nrow_3\n47.657345\n18.429118\n46.073643\n0.000000\n45.061097\n19.066500\n46.039121\n42.780883\n\n\nrow_4\n13.062925\n63.312323\n9.000868\n45.061097\n0.000000\n47.754949\n35.618122\n8.803791\n\n\nrow_5\n54.911521\n25.182682\n52.100901\n19.066500\n47.754949\n0.000000\n60.513388\n48.906725\n\n\nrow_6\n24.415786\n61.821302\n27.548548\n46.039121\n35.618122\n60.513388\n0.000000\n27.089433\n\n\nrow_7\n6.714166\n61.188418\n3.910651\n42.780883\n8.803791\n48.906725\n27.089433\n0.000000\n\n\n\n\n\n\n\n\n# Plot a square matrix with an optional triangular mask.\nplot_corr(df[['age', 'fare', 'sibsp', 'parch']].corr(numeric_only=True))\n\n\n\n\n\n\n\n\n\n# Plot a confusion matrix from target and prediction arrays.\nplot_confusion_matrix(df['survived'], df['adult_male'], class_names=['False', 'True'], normalize=True)\n\nNormalized confusion matrix\n\n\n\n\n\n\n\n\n\n\n\n05 hierarchical\n\nfrom kplot.hierarchical import get_1d_distance, get_1d_distance_parallel, get_Z, plot_dendrogram, get_hcluster\n\n\nimport pandas as pd,numpy as np,seaborn as sns\nfrom scipy.spatial.distance import euclidean\n\n# Set up the objects used by the examples below.\ndf0=sns.load_dataset(\"iris\")\ndf = df0.drop(columns=\"species\")\n\ndef my_distance(u, v):\n    return np.sum(np.abs(u - v))\n\nA = np.array([[0, 0], [1, 1], [2, 2]])\n\ndf0.head()\n\n\n\n\n\n\n\n\nsepal_length\nsepal_width\npetal_length\npetal_width\nspecies\n\n\n\n\n0\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n1\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n2\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n3\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n4\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n\n\n\n\n\n\n# Compute 1D distance (like pdist from scipy) but for df with column names\n# return 1d distance\nget_1d_distance(pd.DataFrame(A),func_flat=my_distance)\n\n100%|██████████| 3/3 [00:00&lt;00:00, 3381.59it/s]\n\n\narray([2, 4, 2])\n\n\n\n# Parallel compute 1D distance for each row in a dataframe given a distance function\n# get_1d_distance_parallel(df, func_flat=my_distance)\n\n\n# Get linkage matrix Z from pssms dataframe\nZ = get_Z(df,func_flat=euclidean,parallel=False)\n\n100%|██████████| 150/150 [00:00&lt;00:00, 532.10it/s]\n\n\n\n# Run the example.\nplot_dendrogram(Z,dense=10,labels=df.index,thr=0.5)\n\n\n\n\n\n\n\n\n\n# Get flat cluster assignments from hierarchical clustering linkage matrix `Z`.\nget_hcluster(df,labels=df0['species'].tolist(),thr=5,dense=10)\n\n0      1\n1      1\n2      1\n3      1\n4      1\n      ..\n145    2\n146    4\n147    2\n148    2\n149    4\nLength: 150, dtype: int32\n\n\n\n\n\n\n\n\n\n\n\n06 ranking\n\nfrom kplot.ranking import plot_rank, get_AUCDF\n\n\nimport seaborn as sns\n\n# Set up the objects used by the examples below.\ndf = sns.load_dataset('tips')\ndf.shape\n\n(244, 7)\n\n\n\n# Plot a ranked scatter and annotate the highest and lowest entries.\nsort_df=df.sort_values('total_bill').copy()\nsort_df['id'] = sort_df.index.astype(str)\n\n\nplot_rank(sort_df, x='id', y='total_bill', n_hi=10, n_lo=10)\n\n\n\n\n\n\n\n\n\n# Compute the normalized area under an empirical CDF over rank values.\nget_AUCDF(df, 'total_bill', plot=True)\n\n\n\n\n\n\n\n\n0.6519265042202643",
+    "crumbs": [
+      "Home",
+      "Get Started"
+    ]
+  },
+  {
+    "objectID": "ranking.html",
+    "href": "ranking.html",
+    "title": "ranking",
+    "section": "",
+    "text": "df = sns.load_dataset('tips')\ndf.shape\n\n(244, 7)\ndf.head()\n\n\n\n\n\n\n\n\ntotal_bill\ntip\nsex\nsmoker\nday\ntime\nsize\n\n\n\n\n0\n16.99\n1.01\nFemale\nNo\nSun\nDinner\n2\n\n\n1\n10.34\n1.66\nMale\nNo\nSun\nDinner\n3\n\n\n2\n21.01\n3.50\nMale\nNo\nSun\nDinner\n3\n\n\n3\n23.68\n3.31\nMale\nNo\nSun\nDinner\n2\n\n\n4\n24.59\n3.61\nFemale\nNo\nSun\nDinner\n4",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "ranking"
+    ]
+  },
+  {
+    "objectID": "ranking.html#ranking-plots",
+    "href": "ranking.html#ranking-plots",
+    "title": "ranking",
+    "section": "Ranking Plots",
+    "text": "Ranking Plots\n\n\nplot_rank\n\ndef plot_rank(\n    sorted_df:DataFrame, # dataframe already sorted by the ranking value\n    x:str, # label column used for annotations\n    y:str, # numeric ranking column\n    n_hi:int | None=10, # number of items to annotate at the head\n    n_lo:int | None=10, # number of items to annotate at the tail\n    figsize:tuple=(10, 8), # figure size in inches\n    data:NoneType=None, hue:NoneType=None, size:NoneType=None, style:NoneType=None, palette:NoneType=None,\n    hue_order:NoneType=None, hue_norm:NoneType=None, sizes:NoneType=None, size_order:NoneType=None,\n    size_norm:NoneType=None, markers:bool=True, style_order:NoneType=None, legend:str='auto', ax:NoneType=None\n):\n\nPlot a ranked scatter and annotate the highest and lowest entries.\n\nsort_df=df.sort_values('total_bill').copy()\nsort_df['id'] = sort_df.index.astype(str)\n\n\nplot_rank(sort_df, x='id', y='total_bill', n_hi=10, n_lo=10)",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "ranking"
+    ]
+  },
+  {
+    "objectID": "ranking.html#rank-summary-metrics-aucdf",
+    "href": "ranking.html#rank-summary-metrics-aucdf",
+    "title": "ranking",
+    "section": "Rank Summary Metrics, AUCDF",
+    "text": "Rank Summary Metrics, AUCDF\nWe compute the area under the empirical cumulative distribution function (CDF) as a function of kinase rank using the trapezoidal rule.\nLet $ r_{(1)} &lt; r_{(2)} &lt; &lt; r_{(n)} $ be the sorted rank values (e.g., \\(1,2,\\dots,n\\)), and define the empirical CDF values as:\n\\[\nF(r_{(i)}) = \\frac{i}{n}\n\\]\nThe normalized area under this CDF-vs-rank curve (AUCDF) is then computed via the trapezoidal rule:\n\\[\n\\text{AUC}_{\\text{CDF}} =\n\\frac{1}{r_{\\max} - r_{\\min}} \\sum_{i=1}^{n-1}\n\\frac{F(r_{(i)}) + F(r_{(i+1)})}{2} \\cdot (r_{(i+1)} - r_{(i)})\n\\]\nwhere $ r_{} = r_{(1)} $, typically 1; $ r_{} = r_{(n)} $, typically \\(n\\).\nThis measures how quickly the cumulative mass increases across the ranked kinases. If better kinases (lower rank) tend to appear earlier in the CDF, the AUCDF will be higher.\n\n\nget_AUCDF\n\ndef get_AUCDF(\n    df:DataFrame, # dataframe containing the ranking column\n    col:str, # numeric ranking column\n    reverse:bool=False, # flip the empirical CDF direction\n    plot:bool=True, # whether to draw the histogram and CDF panels\n    xlabel:str='Rank of kinase', # x-axis label for the histogram\n    ylabel:str='Substrates', # y-axis label for the histogram\n)-&gt;float:\n\nCompute the normalized area under an empirical CDF over rank values.\n\nget_AUCDF(df, 'total_bill', plot=True)\n\n\n\n\n\n\n\n\n0.6519265042202643",
+    "crumbs": [
+      "Home",
+      "Modules",
+      "ranking"
+    ]
+  }
+]
