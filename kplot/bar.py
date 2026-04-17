@@ -26,8 +26,9 @@ def plot_hist(
 ):
     "Plot a histogram with a KDE overlay and polygon bins." 
     hist_params = {'element': 'poly', 'edgecolor': None, 'alpha': 0.5, 'bins': 100, 'kde': True}
+    hist_params.update(kwargs)
     fig, ax = plt.subplots(figsize=figsize)
-    sns.histplot(data=df, x=x, ax=ax, **hist_params, **kwargs)
+    sns.histplot(data=df, x=x, ax=ax, **hist_params)
     return ax
 
 # %% ../nbs/03_bar.ipynb #d7c99397

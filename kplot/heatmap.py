@@ -72,6 +72,7 @@ def plot_confusion_matrix(
     normalize: bool = False,  # normalize rows when True
     title: str = 'Confusion matrix',  # plot title
     cmap=plt.cm.Blues,  # matplotlib colormap
+    figsize: tuple[float, float] = (6, 6),  # figure size in inches
     **kwargs,  # forwarded heatmap kwargs
 ):
     "Plot a confusion matrix from target and prediction arrays."
@@ -92,7 +93,7 @@ def plot_confusion_matrix(
     if class_names is None or len(class_names) != len(observed_labels):
         class_names = [str(label) for label in observed_labels]
 
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=figsize)
     sns.heatmap(cm, annot=True, fmt='.2f' if normalize else 'd', cmap=cmap, ax=ax, **kwargs)
     ax.set_title(title)
     ax.set_ylabel('True label')
